@@ -66,6 +66,10 @@ func (p *ContentfulPlugin) SetGlobalConfig(data map[string]any) error {
 }
 
 func (p *ContentfulPlugin) SetSiteConfig(site string, data map[string]any) error {
+	if len(data) == 0 {
+		return nil
+	}
+
 	cfg := ContentfulConfig{}
 	if err := mapstructure.Decode(data, &cfg); err != nil {
 		return err
