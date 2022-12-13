@@ -28,6 +28,8 @@ func NewContentfulPlugin() schema.MachComposerPlugin {
 		Configure: state.Configure,
 		IsEnabled: state.IsEnabled,
 
+		GetValidationSchema: state.GetValidationSchema,
+
 		// Config
 		SetGlobalConfig: state.SetGlobalConfig,
 		SetSiteConfig:   state.SetSiteConfig,
@@ -51,6 +53,9 @@ func (p *Plugin) IsEnabled() bool {
 	return p.enabled
 }
 
+func (p *Plugin) GetValidationSchema() (*schema.ValidationSchema, error) {
+	result := getSchema()
+	return result, nil
 }
 
 func (p *Plugin) SetGlobalConfig(data map[string]any) error {

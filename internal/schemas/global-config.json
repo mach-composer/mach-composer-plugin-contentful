@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "required": [
+        "cma_token",
+        "organization_id"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "cma_token": {
+            "type": "string"
+        },
+        "organization_id": {
+            "type": "string"
+        }
+    },
+    "description": "Generic Contenful configuration."
+}
