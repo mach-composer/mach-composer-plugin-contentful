@@ -9,7 +9,7 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
-type ContentfulPlugin struct {
+type Plugin struct {
 	environment  string
 	provider     string
 	globalConfig *ContentfulConfig
@@ -18,7 +18,7 @@ type ContentfulPlugin struct {
 }
 
 func NewContentfulPlugin() schema.MachComposerPlugin {
-	state := &ContentfulPlugin{
+	state := &Plugin{
 		provider:    "0.1.0",
 		siteConfigs: map[string]*ContentfulConfig{},
 	}
@@ -39,7 +39,7 @@ func NewContentfulPlugin() schema.MachComposerPlugin {
 	})
 }
 
-func (p *ContentfulPlugin) Configure(environment string, provider string) error {
+func (p *Plugin) Configure(environment string, provider string) error {
 	p.environment = environment
 	if provider != "" {
 		p.provider = provider
@@ -47,15 +47,13 @@ func (p *ContentfulPlugin) Configure(environment string, provider string) error 
 	return nil
 }
 
-func (p *ContentfulPlugin) IsEnabled() bool {
+func (p *Plugin) IsEnabled() bool {
 	return p.enabled
 }
 
-func (p *ContentfulPlugin) Identifier() string {
-	return "contentful"
 }
 
-func (p *ContentfulPlugin) SetGlobalConfig(data map[string]any) error {
+func (p *Plugin) SetGlobalConfig(data map[string]any) error {
 	cfg := ContentfulConfig{}
 	if err := mapstructure.Decode(data, &cfg); err != nil {
 		return err
@@ -65,7 +63,7 @@ func (p *ContentfulPlugin) SetGlobalConfig(data map[string]any) error {
 	return nil
 }
 
-func (p *ContentfulPlugin) SetSiteConfig(site string, data map[string]any) error {
+func (p *Plugin) SetSiteConfig(site string, data map[string]any) error {
 	if len(data) == 0 {
 		return nil
 	}
@@ -79,11 +77,11 @@ func (p *ContentfulPlugin) SetSiteConfig(site string, data map[string]any) error
 	return nil
 }
 
-func (p *ContentfulPlugin) TerraformRenderStateBackend(site string) (string, error) {
+func (p *Plugin) TerraformRenderStateBackend(site string) (string, error) {
 	return "", nil
 }
 
-func (p *ContentfulPlugin) TerraformRenderProviders(site string) (string, error) {
+func (p *Plugin) TerraformRenderProviders(site string) (string, error) {
 	result := fmt.Sprintf(`
 		contentful = {
 			source = "labd/contentful"
@@ -92,7 +90,7 @@ func (p *ContentfulPlugin) TerraformRenderProviders(site string) (string, error)
 	return result, nil
 }
 
-func (p *ContentfulPlugin) TerraformRenderResources(site string) (string, error) {
+func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 	cfg := p.getSiteConfig(site)
 	if cfg == nil {
 		return "", nil
@@ -127,7 +125,7 @@ func (p *ContentfulPlugin) TerraformRenderResources(site string) (string, error)
 	return helpers.RenderGoTemplate(template, cfg)
 }
 
-func (p *ContentfulPlugin) RenderTerraformComponent(site string, component string) (*schema.ComponentSchema, error) {
+func (p *Plugin) RenderTerraformComponent(site string, component string) (*schema.ComponentSchema, error) {
 	cfg := p.getSiteConfig(site)
 	if cfg == nil {
 		return nil, nil
@@ -139,7 +137,7 @@ func (p *ContentfulPlugin) RenderTerraformComponent(site string, component strin
 	return result, nil
 }
 
-func (p *ContentfulPlugin) getSiteConfig(site string) *ContentfulConfig {
+func (p *Plugin) getSiteConfig(site string) *ContentfulConfig {
 	cfg, ok := p.siteConfigs[site]
 	if !ok {
 		cfg = &ContentfulConfig{}
