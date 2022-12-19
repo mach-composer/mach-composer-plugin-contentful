@@ -69,7 +69,7 @@ func (p *Plugin) SetGlobalConfig(data map[string]any) error {
 }
 
 func (p *Plugin) SetSiteConfig(site string, data map[string]any) error {
-	if len(data) == 0 {
+	if data == nil {
 		return nil
 	}
 
@@ -143,6 +143,9 @@ func (p *Plugin) RenderTerraformComponent(site string, component string) (*schem
 }
 
 func (p *Plugin) getSiteConfig(site string) *ContentfulConfig {
+	if p.globalConfig == nil {
+		return nil
+	}
 	cfg, ok := p.siteConfigs[site]
 	if !ok {
 		cfg = &ContentfulConfig{}
