@@ -87,6 +87,11 @@ func (p *Plugin) TerraformRenderStateBackend(site string) (string, error) {
 }
 
 func (p *Plugin) TerraformRenderProviders(site string) (string, error) {
+	cfg := p.getSiteConfig(site)
+	if cfg == nil {
+		return "", nil
+	}
+
 	result := fmt.Sprintf(`
 		contentful = {
 			source = "labd/contentful"
