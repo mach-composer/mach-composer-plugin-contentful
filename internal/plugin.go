@@ -110,6 +110,7 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 		  provider "contentful" {
 			cma_token       = {{ .CMAToken|printf "%q" }}
 			organization_id = {{ .OrganizationID|printf "%q" }}
+			environment     = {{ .Environment|printf "%q" }}
 		  }
 	`
 	return helpers.RenderGoTemplate(template, cfg)
