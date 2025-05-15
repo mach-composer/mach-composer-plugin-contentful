@@ -11,6 +11,10 @@
         },
         "organization_id": {
             "type": "string"
+        },
+        "environment": {
+            "type": "string",
+            "default": "master"
         }
     },
     "description": "Generic Contenful configuration."

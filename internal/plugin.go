@@ -19,7 +19,7 @@ type Plugin struct {
 
 func NewContentfulPlugin() schema.MachComposerPlugin {
 	state := &Plugin{
-		provider:    "0.1.0",
+		provider:    "5.3.0",
 		siteConfigs: map[string]*ContentfulConfig{},
 	}
 	return plugin.NewPlugin(&schema.PluginSchema{
@@ -107,29 +107,10 @@ func (p *Plugin) TerraformRenderResources(site string) (string, error) {
 	}
 
 	template := `
-		provider "contentful" {
+		  provider "contentful" {
 			cma_token       = {{ .CMAToken|printf "%q" }}
 			organization_id = {{ .OrganizationID|printf "%q" }}
-		  }
-
-		  resource "contentful_space" "space" {
-			name           = {{ .Space|printf "%q" }}
-			default_locale = {{ .DefaultLocale|printf "%q" }}
-		  }
-
-		  resource "contentful_apikey" "apikey" {
-			space_id = contentful_space.space.id
-
-			name        = "frontend"
-			description = "MACH generated frontend API key"
-		  }
-
-		  output "contentful_space_id" {
-			value = contentful_space.space.id
-		  }
-
-		  output "contentful_apikey_access_token" {
-			value = contentful_apikey.apikey.access_token
+			environment     = {{ .Environment|printf "%q" }}
 		  }
 	`
 	return helpers.RenderGoTemplate(template, cfg)
@@ -141,9 +122,7 @@ func (p *Plugin) RenderTerraformComponent(site string, component string) (*schem
 		return nil, nil
 	}
 
-	result := &schema.ComponentSchema{
-		Variables: "contentful_space_id = contentful_space.space.id",
-	}
+	result := &schema.ComponentSchema{}
 	return result, nil
 }
 

@@ -2,21 +2,14 @@
     "type": "object",
     "description": "Contentful settings.",
     "additionalProperties": false,
-    "required": [
-        "space"
-    ],
     "properties": {
-        "space": {
-            "type": "string"
-        },
-        "default_locale": {
-            "type": "string",
-            "default": "en-US"
-        },
         "cma_token": {
             "type": "string"
         },
         "organization_id": {
+            "type": "string"
+        },
+        "environment": {
             "type": "string"
         }
     }

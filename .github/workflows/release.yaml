@@ -42,7 +42,7 @@ jobs:
           GOPATH: ${{ env.GOPATH }}
 
       - name: Upload release
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mach-composer-plugin-contentful
           path: dist/*

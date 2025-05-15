@@ -1,20 +1,20 @@
 linters:
   disable-all: true
   enable:
-  - asciicheck
-  - bodyclose
-  - contextcheck
-  - errcheck
-  - exhaustive
-  - exportloopref
-  - forcetypeassert
-  - goimports
-  - gosimple
-  - govet
-  - ineffassign
-  - predeclared
-  - staticcheck
-  - tenv
-  - typecheck
-  - unused
-  - whitespace
+    - asciicheck
+    - bodyclose
+    - contextcheck
+    - copyloopvar
+    - errcheck
+    - exhaustive
+    - forcetypeassert
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
+    - predeclared
+    - staticcheck
+    - usetesting
+    - typecheck
+    - unused
+    - whitespace

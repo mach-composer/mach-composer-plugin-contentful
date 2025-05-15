@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       next:
-        description: 'The next increment to create the release for'
+        description: "The next increment to create the release for"
         required: true
-        default: 'minor'
+        default: "minor"
         type: choice
         options:
           - major
@@ -74,7 +74,7 @@ jobs:
           SKIP_UPLOAD: true
 
       - name: Upload release
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mach-composer-plugin-contentful
           path: dist/*
