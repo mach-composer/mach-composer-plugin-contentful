@@ -19,7 +19,7 @@ type Plugin struct {
 
 func NewContentfulPlugin() schema.MachComposerPlugin {
 	state := &Plugin{
-		provider:    "0.1.0",
+		provider:    "5.3.0",
 		siteConfigs: map[string]*ContentfulConfig{},
 	}
 	return plugin.NewPlugin(&schema.PluginSchema{
