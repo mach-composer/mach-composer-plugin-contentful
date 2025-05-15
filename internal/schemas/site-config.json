@@ -8,6 +8,9 @@
         },
         "organization_id": {
             "type": "string"
+        },
+        "environment": {
+            "type": "string"
         }
     }
 }
